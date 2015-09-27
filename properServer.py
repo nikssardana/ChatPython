@@ -16,7 +16,7 @@ def listen1():
                             connection2.close()
                             server.close()
                             print "Connections closed"
-                            exit(0)
+                            sys.exit(0)
 
                            
 			if message1 != ' ':
@@ -30,7 +30,7 @@ def listen1():
                             connection2.close()
                             server.close()
                             print "An error occured. Connections closed"
-                            exit(1)
+                            sys.exit(1)
 
 	
 def listen2():
@@ -44,7 +44,7 @@ def listen2():
                             connection2.close()
                             server.close()
                             print "Connections closed"
-                            exit(0)
+                            sys.exit(0)
 
 			if message2 != ' ':
 				connection1.send(message2)
@@ -57,7 +57,7 @@ def listen2():
                             connection2.close()
                             server.close()
                             print "An error occured. Connections closed"
-                            exit(2)
+                            sys.exit(2)
 
 
 
