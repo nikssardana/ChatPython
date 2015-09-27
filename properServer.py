@@ -24,8 +24,14 @@ def listen1():
 				print "message",message1,'sent from client1 to client2'
 		
 		except:
-			break
-	
+                            connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
+                            connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
+                            connection1.close()
+                            connection2.close()
+                            server.close()
+                            print "An error occured. Connections closed"
+                            exit(1)
+
 	
 def listen2():
 	while True:	
@@ -45,7 +51,13 @@ def listen2():
 				print "message",message2,'sent from client2 to client1'
 		
 		except:
-			break
+                            connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
+                            connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
+                            connection1.close()
+                            connection2.close()
+                            server.close()
+                            print "An error occured. Connections closed"
+                            exit(2)
 
 
 
