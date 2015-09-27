@@ -10,27 +10,31 @@ def listen1():
 			message1 = connection1.recv(180)
                         
                         if message1 ==  '\q':
+                            connection2.send(message1)
                             connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
                             connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
                             connection1.close()
                             connection2.close()
                             server.close()
                             print "Connections closed"
-                            sys.exit(0)
+                            break
 
                            
-			if message1 != ' ':
+			if message1:
 				connection2.send(message1)
 				print "message",message1,'sent from client1 to client2'
 		
 		except:
+                    try:
                             connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
                             connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
                             connection1.close()
                             connection2.close()
                             server.close()
                             print "An error occured. Connections closed"
-                            sys.exit(1)
+                            break
+                    except:
+                        pass
 
 	
 def listen2():
@@ -38,26 +42,30 @@ def listen2():
 		try:
 			message2 = connection2.recv(180)
                         if message2 ==  '\q':
+                            connection1.send(message2)
                             connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
                             connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
                             connection1.close()
                             connection2.close()
                             server.close()
                             print "Connections closed"
-                            sys.exit(0)
+                            break
 
 			if message2 != ' ':
 				connection1.send(message2)
 				print "message",message2,'sent from client2 to client1'
 		
 		except:
+                    try:
                             connection1.shutdown(socket.SHUT_RD | socket.SHUT_WR)		
                             connection2.shutdown(socket.SHUT_RD | socket.SHUT_WR)
                             connection1.close()
                             connection2.close()
                             server.close()
                             print "An error occured. Connections closed"
-                            sys.exit(2)
+                            break
+                    except:
+                        pass
 
 
 
@@ -78,9 +86,11 @@ print 'client2:',connection2.getpeername()
 
 newpid = os.fork()
 
-if newpid == 0:
+if newpid == 0:	#child process
 	listen1()
+	parentId = os.getppid()
+	os.kill(parentId,signal.SIGKILL)
+
 	
 else:
 	listen2()
-
