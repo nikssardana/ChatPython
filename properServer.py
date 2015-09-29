@@ -76,11 +76,11 @@ server_address = ('192.168.1.6',8081)
 server.bind(server_address)
 print "Server started on port 8081"
 
-server.listen(2)	#listens for first __init__ message from clients
+server.listen(2)	#listens for connection request from clients
 connection1,client_address1 = server.accept()	#accepts a request from client
 print 'client1:',connection1.getpeername()
 
-server.listen(2)	#listens for second __init__ message from clients
+server.listen(2)	#listens for connection request from clients
 connection2,client_address2 = server.accept()	#accepts a request from client
 print 'client2:',connection2.getpeername()
 

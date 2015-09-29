@@ -40,5 +40,5 @@ if newpid == 0:	#child process
 	
 else:
 	inp()
-	parentId = os.getpid()
+	parentId = os.getpid()  #pid returns own, ppid returns parent's process id
 	os.kill(parentId,signal.SIGKILL)
